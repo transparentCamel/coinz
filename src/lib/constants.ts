@@ -11,8 +11,6 @@ export const STATIC_CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours for sta
 export const CACHE_KEYS = {
   TOP_COINS: 'top-coins',
   COIN_DETAIL: (id: string) => `coin-detail-${id}`,
-  COIN_STATIC: (id: string) => `coin-static-${id}`, // Static data: description, images, etc.
-  COIN_PRICE: (id: string) => `coin-price-${id}`, // Dynamic data: price, market cap
 } as const;
 
 // LocalStorage keys

@@ -87,23 +87,3 @@ export async function getCoinDetail(id: string): Promise<CoinDetail> {
     `/coins/${sanitizedId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
   );
 }
-
-/**
- * Fetches multiple coin details in parallel
- * @param ids - Array of coin identifiers
- * @returns Promise resolving to an array of CoinDetail objects
- */
-export async function getCoinDetailsBatch(ids: string[]): Promise<CoinDetail[]> {
-  // CoinGecko doesn't have a true batch endpoint, so we fetch in parallel
-  // This is still more efficient than sequential fetches
-  const promises = ids.map((id) => 
-    getCoinDetail(id).catch((error) => {
-      // Return null for failed fetches, we'll filter them out
-      console.error(`Failed to fetch coin ${id}:`, error);
-      return null;
-    })
-  );
-  
-  const results = await Promise.all(promises);
-  return results.filter((coin): coin is CoinDetail => coin !== null);
-}
